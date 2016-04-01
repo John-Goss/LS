@@ -6,7 +6,7 @@
 /*   By: jle-quer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/29 17:05:27 by jle-quer          #+#    #+#             */
-/*   Updated: 2016/03/29 17:45:47 by jle-quer         ###   ########.fr       */
+/*   Updated: 2016/04/01 18:07:28 by jle-quer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,10 @@ typedef struct		s_strct
 	int	opt_f;
 	int	opt_g;
 	int	opt_d;
+	int	opt_min;
 }					t_strct;
 
-int					parse_opt(int ac, char **av);
-int					error(int code);
+int					parse_opt(t_strct *opt, char **av);
+int					error(int code, char *str);
 
 #endif
