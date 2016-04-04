@@ -6,7 +6,7 @@
 /*   By: jle-quer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/29 17:23:52 by jle-quer          #+#    #+#             */
-/*   Updated: 2016/04/01 18:56:44 by jle-quer         ###   ########.fr       */
+/*   Updated: 2016/04/04 14:01:11 by jle-quer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,5 +85,5 @@ int			parse_opt(t_strct *opt, char **av)
 			return (error(1, av[i] + (unvalid_opt(av[i] + 1, "lRartufgd"))));
 		i++;
 	}
-	return (0);
+	return (i);
 }
