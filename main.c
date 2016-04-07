@@ -12,33 +12,81 @@
 
 #include "ft_ls.h"
 
-static void	init_opt(t_strct *opt, t_path *path)
+static int	is_valid_opt(char c, char *str)
 {
-	opt->opt_l = 0;
-	opt->opt_R = 0;
-	opt->opt_a = 0;
-	opt->opt_r = 0;
-	opt->opt_t = 0;
-	opt->opt_u = 0;
-	opt->opt_f = 0;
-	opt->opt_g = 0;
-	opt->opt_d = 0;
-	opt->opt_min = 0;
-	path->opt = opt;
-	path->dpath = NULL;
-	path->next = NULL;
-	path->dir = NULL;
+	int	i;
+
+	if (str == NULL || c == '\0')
+		return (0);
+	i = -1;
+	while (str[++i])
+		if (c == str[i])
+			return (1);
+	return (0);
+}
+
+static int	is_opt(char *str)
+{
+	if (str && str[0] == '-' && str[1])
+		return (1);
+	return (0);
+}
+
+void		parse_opt(t_opt *opt, char *str)
+{
+	int		i;
+
+	i = 0;
+	while (str[++i])
+	{
+		if (is_valid_opt(str[i], "1lRafgrtu") || (str[1] == '-' && !str[2]))
+		{
+			opt->l = (str[i] == 'l' ? 1 : opt->l);
+			opt->upper_r = (str[i] == 'R' ? 1 : opt->upper_r);
+			opt->a = (str[i] == 'a' ? 1 : opt->a);
+			opt->r = (str[i] == 'r' ? 1 : opt->r);
+			opt->t = (str[i] == 't' ? 1 : opt->t);
+			opt->u = (str[i] == 'u' ? 1 : opt->u);
+			opt->f = (str[i] == 'f' ? 1 : opt->f);
+			opt->l = (str[i] == 'f' ? 0 : opt->l);
+			opt->a = (str[i] == 'f' ? 1 : opt->a);
+			opt->g = (str[i] == 'g' ? 1 : opt->g);
+			opt->l = (str[i] == '1' ? 0 : opt->l);
+		}
+		else
+			error_opt(str[i]);
+	}
+}
+
+void		get_param(int ac, char **av, t_opt *opt, t_list **path)
+{
+	int		i;
+	int		type;
+
+	i = -1;
+	type = 1;
+	while (++i < ac)
+	{
+		if (is_opt(av[i + 1]) == 0)
+			type = 0;
+		if (type == 1)
+			parse_opt(opt, av[i + 1]);
+		else if (type == 0)
+			ft_lstpushback(path, av[i + 1], ft_strlen(av[i + 1]));
+	}
 }
 
 int			main(int ac, char **av)
 {
-	t_strct	opt;
-	t_path	path;
-	int		i;
+	t_opt	opt;
+	t_list	*path;
 
-	(void)ac;
-	init_opt(&opt, &path);
-	i = parse_opt(&opt, av);
-	read_path(&path, av, i);
+	opt = (t_opt){0, 0, 0, 0, 0, 0, 0, 0};
+	path = NULL;
+	if (ac > 1)
+		get_param(ac - 1, av, &opt, &path);
+	if (path == NULL)
+		path = ft_lstnew(".", ft_strlen("."));
+//	core(opt, path, path->next != NULL ? 1 : 0);
 	return (0);
 }
