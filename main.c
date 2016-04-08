@@ -87,6 +87,6 @@ int			main(int ac, char **av)
 		get_param(ac - 1, av, &opt, &path);
 	if (path == NULL)
 		path = ft_lstnew(".", ft_strlen("."));
-//	core(opt, path, path->next != NULL ? 1 : 0);
+	read_path(opt, path, path->next != NULL ? 1 : 0);
 	return (0);
 }

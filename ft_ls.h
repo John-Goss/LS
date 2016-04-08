@@ -24,8 +24,6 @@
 # include <stdio.h>
 # include <errno.h>
 
-# define MAJOR(x)((int32_t)(((u_int32_t)(x) >> 24) & 0xff))
-# define MINOR(x)((int32_t)((x) & 0xffffff))
 # define C_NONE         "\033[0m"
 # define C_BOLD         "\033[1m"
 # define C_BLACK        "\033[30m"
