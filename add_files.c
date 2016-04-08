@@ -1,6 +1,6 @@
 #include "ft_ls.h"
 
-t_elem	*elemnew(char *name, char *path, t_opt opt)
+static t_elem	*elemnew(char *name, char *path, t_opt opt)
 {
 	t_elem			*elem;
 	struct stat		fstat;
@@ -26,7 +26,7 @@ t_elem	*elemnew(char *name, char *path, t_opt opt)
 	return (elem);
 }
 
-int		elemget(t_elem **files, struct dirent *file, char *path, t_opt opt)
+int				elemget(t_elem **files, struct dirent *file, char *pa, t_opt op)
 {
 	t_elem	*list;
 
@@ -37,14 +37,14 @@ int		elemget(t_elem **files, struct dirent *file, char *path, t_opt opt)
 	{
 		while (list->next)
 			list = list->next;
-		list->next = elemnew(file->d_name, path, opt);
+		list->next = elemnew(file->d_name, pa, op);
 	}
 	else
-		*files = elemnew(file->d_name, path, opt);
+		*files = elemnew(file->d_name, pa, op);
 	return (1);
 }
 
-void	elemgetfiles(t_elem **files, char *name, char *path, t_opt opt)
+void			elemgetfiles(t_elem **files, char *name, char *path, t_opt opt)
 {
 	t_elem *list;
 

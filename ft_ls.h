@@ -24,6 +24,8 @@
 # include <stdio.h>
 # include <errno.h>
 
+# define MAJOR(x)((int32_t)(((u_int32_t)(x) >> 24) & 0xff))
+# define MINOR(x)((int32_t)((x) & 0xffffff))
 # define C_NONE         "\033[0m"
 # define C_BOLD         "\033[1m"
 # define C_BLACK        "\033[30m"
@@ -66,6 +68,7 @@ typedef struct		s_size
 {
 	int				total;
 	int				size;
+	int				userspace;
 	int				groupspace;
 	int				linkspace;
 	int				min;
@@ -81,5 +84,22 @@ void				ls_file(t_opt opt, t_list *path);
 void				ls_dir(t_opt opt, t_list *path, int multidir);
 void				ls_dir_open(t_opt opt, t_elem *dir_list, int multidir);
 void				display_file(t_opt opt, t_elem *file, int type);
+void				elemgetfiles(t_elem **files, char *name,
+					char *path, t_opt opt);
+int					elemget(t_elem **files, struct dirent *file,
+					char *pa, t_opt op);
+int					cmp_alpha(t_elem *elem1, t_elem *elem2);
+int					cmp_time(t_elem *elem1, t_elem *elem2);
+void				ls_basic(t_opt opt, t_elem *files);
+void				ls_all_info(t_opt opt, t_elem *cur, t_size size);
+void				ls_long(t_opt opt, t_elem *files, int type);
+void				print_user_access(t_elem *elem);
+void				print_int(int nlink, int spacemax);
+void				print_str(char *str, int spacemax);
+void				print_majmin(t_elem *file, t_size size);
+void				display_date(time_t date);
+t_size				get_size(t_opt opt, t_elem *files);
+t_elem				*sort_elem(t_elem *list, t_opt opt);
+void				recursion(t_opt opt, t_elem *files);
 
 #endif
