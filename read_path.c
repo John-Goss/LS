@@ -12,101 +12,101 @@
 
 #include "ft_ls.h"
 
-void	display_file(t_opt arg, t_elem *files, int fileordir)
+void	display_file(t_opt opt, t_elem *file, int type)
 {
-	t_elem	*cur;
+	t_elem	*ptr;
 
-	cur = files;
-	cur = sort_elem(cur, arg);
-	(arg.l == 1 || arg.g == 1) ? \
-			ls_long(arg, cur, fileordir) : ls_simple(arg, cur);
-	arg.upper_r == 1 ? recursion(arg, cur) : NULL;
+	ptr = file;
+	ptr = sort_elem(ptr, opt);
+	(opt.l == 1 || opt.g == 1) ?
+				ls_long(opt, ptr, type) : ls_simple(opt, ptr);
+	opt.upper_r == 1 ? recursion(opt, ptr) : NULL;
 }
 
-void	do_ls_dir2(t_opt arg, t_elem *dirlist, int multidir)
+void	ls_dir_open(t_opt opt, t_elem *dir_list, int multidir)
 {
 	DIR		*dir;
-	t_elem	*files;
+	t_elem	*file;
 	int		first;
 
 	first = 0;
-	files = NULL;
-	while (dirlist)
+	file = NULL;
+	while (dir_list)
 	{
-		dir = opendir(dirlist->name);
-		while (elemget(&files, readdir(dir), \
-			ft_strjoin(dirlist->path, "/"), arg) != 0)
+		dir = opendir(dir_list->name);
+		while (elemget(&file, readdir(dir),
+						ft_strjoin(dir_list->path, "/"), opt) != 0)
 			;
 		closedir(dir);
-		if (files)
+		if (file)
 		{
 			first == 1 ? ft_putchar('\n') : NULL;
-			multidir ? ft_putendl(ft_strjoin(dirlist->name, ":")) : NULL;
+			multidir ? ft_putendl(ft_strjoin(dir_list->name, ":")) : NULL;
 			first = 1;
-			display_file(arg, files, 1);
+			display_file(opt, file, 1);
 		}
-		files = NULL;
-		dirlist = dirlist->next;
+		file = NULL;
+		dir_list = dir_list->next;
 	}
 }
 
-void	do_ls_dir(t_opt arg, t_list *path, int multidir)
+void	ls_dir(t_opt opt, t_list *path, int multidir)
 {
-	t_list	*cur;
-	t_elem	*dirlist;
+	t_list	*ptr;
+	t_elem	*dir_list;
 
-	cur = path;
-	dirlist = NULL;
-	while (cur)
+	ptr = path;
+	dir_list = NULL;
+	while (ptr)
 	{
-		elemgetfiles(&dirlist, cur->content, "", arg);
-		cur = cur->next;
+		elemgetfiles(&dir_list, ptr->content, "", opt);
+		ptr = ptr->next;
 	}
-	dirlist = sort_elem(dirlist, arg);
-	do_ls_dir2(arg, dirlist, multidir);
+	dir_list = sort_elem(dir_list, opt);
+	ls_dir_open(opt, dir_list, multidir);
 }
 
-void	do_ls_file(t_opt arg, t_list *path)
+void	ls_file(t_opt opt, t_list *path)
 {
-	t_list	*cur;
-	t_elem	*files;
+	t_list	*ptr;
+	t_elem	*file;
 
-	cur = path;
-	files = NULL;
-	arg.a = 1;
-	while (cur)
+	ptr = path;
+	file = NULL;
+	opt.a = 1;
+	while (ptr)
 	{
-		elemgetfiles(&files, cur->content, "", arg);
-		cur = cur->next;
+		elemgetfiles(&file, ptr->content, "", opt);
+		ptr = ptr->next;
 	}
-	if (files)
-		display_file(arg, files, 0);
+	if (file)
+		display_file(opt, file, 0);
 }
 
-void	core(t_opt arg, t_list *path, int multidir)
+void	read_path(t_opt opt, t_list *path, int multidir)
 {
 	DIR		*dir;
 	t_list	*file;
 	t_list	*directory;
-	t_list	*cur;
+	t_list	*ptr;
 
 	file = NULL;
 	directory = NULL;
-	cur = path;
-	while (cur)
+	ptr = path;
+	while (ptr)
 	{
-		if ((dir = opendir(cur->content)) == NULL)
-			errno != ENOTDIR ? error_path("ft_ls: ", cur->content, 0) : \
-				ft_lstpushback(&file, cur->content, cur->content_size);
+		if ((dir = opendir(ptr->content)) == NULL)
+			errno != ENOTDIR ? error_path("ft_ls: ", ptr->content, 0) :
+				ft_lstpushback(&file, ptr->content, ptr->content_size);
 		else
 		{
-			ft_lstpushback(&directory, cur->content, cur->content_size);
+			ft_lstpushback(&directory, ptr->content, ptr->content_size);
 			if (closedir(dir) == -1)
-				error_path("ft_ls: ", cur->content, 0);
+				error_path("ft_ls: ", ptr->content, 0);
 		}
-		cur = cur->next;
+		ptr = ptr->next;
 	}
-	file ? do_ls_file(arg, file) : NULL;
+	file ? ls_file(opt, file) : NULL;
 	file && directory ? ft_putchar('\n') : NULL;
-	directory ? do_ls_dir(arg, directory, multidir) : NULL;
+	directory ? ls_dir(opt, directory, multidir) : NULL;
 }

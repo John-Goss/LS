@@ -76,5 +76,10 @@ void				parse_opt(t_opt *opt, char *str);
 void				error_opt(char opt);
 void				error_path(char *name, char *error, int ex);
 void				get_param(int ac, char **av, t_opt *opt, t_list **path);
+void				read_path(t_opt opt, t_list *path, int multidir);
+void				ls_file(t_opt opt, t_list *path);
+void				ls_dir(t_opt opt, t_list *path, int multidir);
+void				ls_dir_open(t_opt opt, t_elem *dir_list, int multidir);
+void				display_file(t_opt opt, t_elem *file, int type);
 
 #endif
