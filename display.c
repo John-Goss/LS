@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   display.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jle-quer <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2016/04/12 15:14:55 by jle-quer          #+#    #+#             */
+/*   Updated: 2016/04/12 16:07:45 by jle-quer         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_ls.h"
 
 static void	ft_color(mode_t mode)
@@ -46,7 +58,7 @@ void		ls_all_info(t_opt opt, t_elem *cur, t_size size)
 	if (S_ISCHR(cur->st_mode) || S_ISBLK(cur->st_mode))
 		print_majmin(cur, size);
 	else
-		print_int(cur->st_size, size.size);
+		print_int(size, cur->st_size, size.size);
 	display_date(cur->date);
 	ft_color(cur->st_mode);
 	ft_putendl(cur->name);

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   print_size.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jle-quer <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2016/04/12 15:20:12 by jle-quer          #+#    #+#             */
+/*   Updated: 2016/04/12 16:07:41 by jle-quer         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_ls.h"
 
 void	print_user_access(t_elem *elem)
@@ -21,7 +33,7 @@ void	print_user_access(t_elem *elem)
 	ft_putstr("  ");
 }
 
-void	print_int(int nlink, int spacemax)
+void	print_int(t_size size, int nlink, int spacemax)
 {
 	int		n;
 
@@ -49,13 +61,13 @@ void	print_majmin(t_elem *file, t_size size)
 	int		maj;
 
 	min = (int)ft_strlen(ft_itoa(minor(file->st_rdev)));
-	maj = (int)ft_strlen(ft_itoa(major(file->st_rdev)));
-	ft_putnbr(major(file->st_rdev));
+	maj = (int)ft_strlen(ft_itoa(major(file->st_rdev)) + 1);
 	while (maj < size.maj--)
 		ft_putchar(' ');
+	ft_putnbr(major(file->st_rdev));
 	ft_putstr(", ");
-	ft_putnbr(minor(file->st_rdev));
 	while (min < size.min--)
 		ft_putchar(' ');
+	ft_putnbr(minor(file->st_rdev));
 	ft_putchar(' ');
 }
