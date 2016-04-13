@@ -23,6 +23,20 @@ static void	ft_color(mode_t mode)
 	S_ISSOCK(mode) ? ft_putstr(C_MAGENTA) : NULL;
 }
 
+static int	lst_chr_blk(t_elem *cur)
+{
+	t_elem	*tmp;
+
+	tmp = cur;
+	while (tmp)
+	{
+		if (S_ISCHR(tmp->st_mode) || S_ISBLK(tmp->st_mode))
+			return (1);
+		tmp = tmp->next;
+	}
+	return (0);
+}
+
 void		ls_basic(t_opt opt, t_elem *files)
 {
 	t_elem	*cur;
@@ -43,7 +57,7 @@ void		ls_basic(t_opt opt, t_elem *files)
 void		ls_all_info(t_opt opt, t_elem *cur, t_size size)
 {
 	print_user_access(cur);
-	print_int(cur->st_nlink, size.linkspace);
+	print_int(size, cur->st_nlink, size.linkspace, 0);
 	if (opt.g == 0)
 	{
 		if (getpwuid(cur->st_uid))
@@ -58,7 +72,8 @@ void		ls_all_info(t_opt opt, t_elem *cur, t_size size)
 	if (S_ISCHR(cur->st_mode) || S_ISBLK(cur->st_mode))
 		print_majmin(cur, size);
 	else
-		print_int(size, cur->st_size, size.size);
+		lst_chr_blk(cur) == 1 ? print_int(size, cur->st_size, size.size, 1)
+		: print_int(size, cur->st_size, size.size, 0);
 	display_date(cur->date);
 	ft_color(cur->st_mode);
 	ft_putendl(cur->name);

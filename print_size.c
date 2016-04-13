@@ -33,15 +33,16 @@ void	print_user_access(t_elem *elem)
 	ft_putstr("  ");
 }
 
-void	print_int(t_size size, int nlink, int spacemax)
+void	print_int(t_size size, int nlink, int spacemax, int type)
 {
 	int		n;
 
-	n = spacemax - ft_strlen(ft_itoa(nlink));
+	n = type == 1 ? size.maj + size.min + 2
+	: spacemax - ft_strlen(ft_itoa(nlink));
 	while (n-- > 0)
 		ft_putchar(' ');
 	ft_putnbr(nlink);
-	ft_putstr(" ");
+	ft_putchar(' ');
 }
 
 void	print_str(char *str, int spacemax)

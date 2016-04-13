@@ -92,7 +92,7 @@ void				ls_basic(t_opt opt, t_elem *files);
 void				ls_all_info(t_opt opt, t_elem *cur, t_size size);
 void				ls_long(t_opt opt, t_elem *files, int type);
 void				print_user_access(t_elem *elem);
-void				print_int(int nlink, int spacemax);
+void				print_int(t_size size, int nlink, int spacemax, int type);
 void				print_str(char *str, int spacemax);
 void				print_majmin(t_elem *file, t_size size);
 void				display_date(time_t date);

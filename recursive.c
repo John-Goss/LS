@@ -30,11 +30,9 @@ void		recursion(t_opt opt, t_elem *files)
 	cur = files;
 	while (cur)
 	{
-		if (cur->name && cur->path && \
-				S_ISDIR(cur->st_mode) && \
-				ft_strcmp(".", cur->name) && \
-				ft_strcmp("..", cur->name) && \
-				!(opt.a == 0 && cur->name[0] == '.'))
+		if (cur->name && cur->path && S_ISDIR(cur->st_mode)
+			&& ft_strcmp(".", cur->name) && ft_strcmp("..", cur->name)
+			&& !(opt.a == 0 && cur->name[0] == '.'))
 			recursive(opt, cur->path);
 		cur = cur->next;
 	}
