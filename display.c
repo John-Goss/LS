@@ -6,7 +6,7 @@
 /*   By: jle-quer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/12 15:14:55 by jle-quer          #+#    #+#             */
-/*   Updated: 2016/04/12 16:07:45 by jle-quer         ###   ########.fr       */
+/*   Updated: 2016/04/14 15:28:08 by jle-quer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 static void	ft_color(mode_t mode)
 {
+	if (!isatty(STDOUT_FILENO))
+		return ;
 	S_ISBLK(mode) ? ft_putstr(C_RED) : NULL;
 	S_ISCHR(mode) ? ft_putstr(C_BLUE) : NULL;
 	S_ISDIR(mode) ? ft_putstr(C_CYAN) : NULL;
@@ -48,7 +50,8 @@ void		ls_basic(t_opt opt, t_elem *files)
 		{
 			ft_color(cur->st_mode);
 			ft_putendl(cur->name);
-			ft_putstr(C_NONE);
+			if (isatty(STDOUT_FILENO))
+				ft_putstr(C_NONE);
 		}
 		cur = cur->next;
 	}
@@ -77,7 +80,8 @@ void		ls_all_info(t_opt opt, t_elem *cur, t_size size)
 	display_date(cur->date);
 	ft_color(cur->st_mode);
 	ft_putendl(cur->name);
-	ft_putstr(C_NONE);
+	if (isatty(STDOUT_FILENO))
+		ft_putstr(C_NONE);
 }
 
 void		ls_long(t_opt opt, t_elem *files, int type)

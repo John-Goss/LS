@@ -11,6 +11,7 @@ static void	elem_cpy(t_elem **src, t_elem *cpy)
 	(*src)->st_gid = cpy->st_gid;
 	(*src)->st_size = cpy->st_size;
 	(*src)->st_blocks = cpy->st_blocks;
+	(*src)->st_rdev = cpy->st_rdev;
 }
 
 static void	swap_elem(t_elem **a, t_elem **b)
