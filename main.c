@@ -6,7 +6,7 @@
 /*   By: jle-quer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/29 17:26:20 by jle-quer          #+#    #+#             */
-/*   Updated: 2016/04/15 14:15:45 by jle-quer         ###   ########.fr       */
+/*   Updated: 2016/04/15 16:41:13 by jle-quer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static void	parse_opt(t_opt *opt, char *str)
 	i = 0;
 	while (str[++i])
 	{
-		if (is_valid_opt(str[i], "1lRafgrtu") || (str[1] == '-' && !str[2]))
+		if (is_valid_opt(str[i], "1lRGafrtu") || (str[1] == '-' && !str[2]))
 		{
 			opt->l = (str[i] == 'l' ? 1 : opt->l);
 			opt->upper_r = (str[i] == 'R' ? 1 : opt->upper_r);
@@ -48,9 +48,8 @@ static void	parse_opt(t_opt *opt, char *str)
 			opt->t = (str[i] == 't' ? 1 : opt->t);
 			opt->u = (str[i] == 'u' ? 1 : opt->u);
 			opt->f = (str[i] == 'f' ? 1 : opt->f);
-			opt->l = (str[i] == 'f' ? 0 : opt->l);
 			opt->a = (str[i] == 'f' ? 1 : opt->a);
-			opt->g = (str[i] == 'g' ? 1 : opt->g);
+			opt->g = (str[i] == 'G' ? 1 : opt->g);
 			opt->l = (str[i] == '1' ? 0 : opt->l);
 			opt->end_opt = (str[1] == '-' ? 1 : 0);
 		}

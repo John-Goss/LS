@@ -6,7 +6,7 @@
 /*   By: jle-quer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/29 17:05:27 by jle-quer          #+#    #+#             */
-/*   Updated: 2016/04/15 14:57:37 by jle-quer         ###   ########.fr       */
+/*   Updated: 2016/04/15 16:53:53 by jle-quer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ int					cmp_alpha(t_elem *elem1, t_elem *elem2);
 int					cmp_time(t_elem *elem1, t_elem *elem2);
 void				ls_basic(t_opt opt, t_elem *files);
 void				ls_all_info(t_opt opt, t_elem *cur, t_size size);
-void				ls_long(t_opt opt, t_elem *files, int type);
+void				ls_long(t_opt opt, t_elem *files, int is_dir);
 void				print_user_access(t_elem *elem);
 void				print_int(t_size size, int nlink, int spacemax, int type);
 void				print_str(char *str, int spacemax);

@@ -6,7 +6,7 @@
 /*   By: jle-quer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/04 12:57:35 by jle-quer          #+#    #+#             */
-/*   Updated: 2016/04/14 15:07:23 by jle-quer         ###   ########.fr       */
+/*   Updated: 2016/04/15 16:50:24 by jle-quer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,7 @@ void	display_file(t_opt opt, t_elem *file, int type)
 
 	ptr = file;
 	ptr = sort_elem(ptr, opt);
-	(opt.l == 1 || opt.g == 1) ?
-				ls_long(opt, ptr, type) : ls_basic(opt, ptr);
+	(opt.l == 1) ? ls_long(opt, ptr, type) : ls_basic(opt, ptr);
 	opt.upper_r == 1 ? recursion(opt, ptr) : NULL;
 }
 

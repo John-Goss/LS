@@ -6,7 +6,7 @@
 /*   By: jle-quer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/14 18:20:16 by jle-quer          #+#    #+#             */
-/*   Updated: 2016/04/14 18:20:18 by jle-quer         ###   ########.fr       */
+/*   Updated: 2016/04/15 16:23:34 by jle-quer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	error_opt(char opt)
 {
 	ft_putstr_fd("ft_ls: illegal option -- ", 2);
 	ft_putchar_fd(opt, 2);
-	ft_putstr_fd("\nusage: ft_ls [-Rafglrtu1] [file ...]\n", 2);
+	ft_putstr_fd("\nusage: ft_ls [-GRaflrtu1] [file ...]\n", 2);
 	exit(EXIT_FAILURE);
 }
 
