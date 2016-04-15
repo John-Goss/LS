@@ -6,7 +6,7 @@
 /*   By: jle-quer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/29 17:05:27 by jle-quer          #+#    #+#             */
-/*   Updated: 2016/04/04 15:58:59 by jle-quer         ###   ########.fr       */
+/*   Updated: 2016/04/15 13:19:26 by jle-quer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ typedef struct		s_opt
 	int				u;
 	int				f;
 	int				g;
+	int				end_opt;
 }					t_opt;
 
 typedef struct		s_elem
@@ -73,7 +74,6 @@ typedef struct		s_size
 	int				maj;
 }					t_size;
 
-void				parse_opt(t_opt *opt, char *str);
 void				error_opt(char opt);
 void				error_path(char *name, char *error, int ex);
 void				get_param(int ac, char **av, t_opt *opt, t_list **path);

@@ -6,7 +6,7 @@
 /*   By: jle-quer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/29 17:26:20 by jle-quer          #+#    #+#             */
-/*   Updated: 2016/04/04 15:46:15 by jle-quer         ###   ########.fr       */
+/*   Updated: 2016/04/15 13:19:20 by jle-quer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static int	is_opt(char *str)
 	return (0);
 }
 
-void		parse_opt(t_opt *opt, char *str)
+static void	parse_opt(t_opt *opt, char *str)
 {
 	int		i;
 
@@ -52,6 +52,7 @@ void		parse_opt(t_opt *opt, char *str)
 			opt->a = (str[i] == 'f' ? 1 : opt->a);
 			opt->g = (str[i] == 'g' ? 1 : opt->g);
 			opt->l = (str[i] == '1' ? 0 : opt->l);
+			opt->end_opt = (str[1] == '-' ? 1 : 0);
 		}
 		else
 			error_opt(str[i]);
@@ -71,6 +72,8 @@ void		get_param(int ac, char **av, t_opt *opt, t_list **path)
 			type = 0;
 		if (type == 1)
 			parse_opt(opt, av[i + 1]);
+		if (opt->end_opt == 1)
+			ft_lstpushback(path, av[i + 2], ft_strlen(av[i + 2]));
 		else if (type == 0)
 			ft_lstpushback(path, av[i + 1], ft_strlen(av[i + 1]));
 	}
@@ -81,7 +84,7 @@ int			main(int ac, char **av)
 	t_opt	opt;
 	t_list	*path;
 
-	opt = (t_opt){0, 0, 0, 0, 0, 0, 0, 0};
+	opt = (t_opt){0, 0, 0, 0, 0, 0, 0, 0, 0};
 	path = NULL;
 	if (ac > 1)
 		get_param(ac - 1, av, &opt, &path);
