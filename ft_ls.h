@@ -6,7 +6,7 @@
 /*   By: jle-quer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/29 17:05:27 by jle-quer          #+#    #+#             */
-/*   Updated: 2016/04/15 13:19:26 by jle-quer         ###   ########.fr       */
+/*   Updated: 2016/04/15 14:57:37 by jle-quer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@
 # define C_MAGENTA      "\033[35m"
 # define C_CYAN         "\033[36m"
 # define C_GRAY         "\033[37m"
+
+# define BUFF_SIZE 256
 
 typedef struct		s_opt
 {
@@ -99,5 +101,6 @@ void				display_date(time_t date);
 t_size				get_size(t_opt opt, t_elem *files);
 t_elem				*sort_elem(t_elem *list, t_opt opt);
 void				recursion(t_opt opt, t_elem *files);
+void				display_link(t_elem *cur);
 
 #endif

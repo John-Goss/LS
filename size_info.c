@@ -6,7 +6,7 @@
 /*   By: jle-quer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/12 15:14:45 by jle-quer          #+#    #+#             */
-/*   Updated: 2016/04/12 15:17:31 by jle-quer         ###   ########.fr       */
+/*   Updated: 2016/04/15 15:04:51 by jle-quer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,4 +62,14 @@ t_size		get_size(t_opt opt, t_elem *files)
 		cur = cur->next;
 	}
 	return (size);
+}
+
+void		display_link(t_elem *cur)
+{
+	char	buf[BUFF_SIZE + 1];
+	size_t	i;
+
+	i = readlink(cur->path, buf, BUFF_SIZE);
+	buf[i] = '\0';
+	ft_printf("%s -> %s\n", cur->name, buf);
 }

@@ -6,7 +6,7 @@
 /*   By: jle-quer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/12 15:14:55 by jle-quer          #+#    #+#             */
-/*   Updated: 2016/04/14 15:28:08 by jle-quer         ###   ########.fr       */
+/*   Updated: 2016/04/15 15:24:11 by jle-quer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ void		ls_all_info(t_opt opt, t_elem *cur, t_size size)
 		: print_int(size, cur->st_size, size.size, 0);
 	display_date(cur->date);
 	ft_color(cur->st_mode);
-	ft_putendl(cur->name);
+	S_ISLNK(cur->st_mode) ? display_link(cur) : ft_putendl(cur->name);
 	if (isatty(STDOUT_FILENO))
 		ft_putstr(C_NONE);
 }
@@ -93,6 +93,10 @@ void		ls_long(t_opt opt, t_elem *files, int type)
 	size = get_size(opt, files);
 	if (type)
 	{
+		if (!opt.a && cur->name[0] == '.' && !cur->name[1] &&
+				cur->next->name[0] == '.' && cur->next->name[1] == '.'
+				&& !cur->next->next)
+			return ;
 		ft_putstr("total ");
 		ft_putnbr(size.total);
 		ft_putchar('\n');
