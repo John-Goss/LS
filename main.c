@@ -6,7 +6,7 @@
 /*   By: jle-quer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/29 17:26:20 by jle-quer          #+#    #+#             */
-/*   Updated: 2016/04/15 13:19:20 by jle-quer         ###   ########.fr       */
+/*   Updated: 2016/04/15 14:15:45 by jle-quer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,9 @@ static int	is_valid_opt(char c, char *str)
 	return (0);
 }
 
-static int	is_opt(char *str)
+static int	is_opt(t_opt *opt, char *str)
 {
-	if (str && str[0] == '-' && str[1])
+	if (str && str[0] == '-' && str[1] && !opt->end_opt)
 		return (1);
 	return (0);
 }
@@ -68,12 +68,10 @@ void		get_param(int ac, char **av, t_opt *opt, t_list **path)
 	type = 1;
 	while (++i < ac)
 	{
-		if (is_opt(av[i + 1]) == 0)
+		if (is_opt(opt, av[i + 1]) == 0)
 			type = 0;
 		if (type == 1)
 			parse_opt(opt, av[i + 1]);
-		if (opt->end_opt == 1)
-			ft_lstpushback(path, av[i + 2], ft_strlen(av[i + 2]));
 		else if (type == 0)
 			ft_lstpushback(path, av[i + 1], ft_strlen(av[i + 1]));
 	}
