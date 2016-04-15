@@ -6,7 +6,7 @@
 /*   By: jle-quer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/14 18:20:16 by jle-quer          #+#    #+#             */
-/*   Updated: 2016/04/15 16:23:34 by jle-quer         ###   ########.fr       */
+/*   Updated: 2016/04/15 17:37:38 by jle-quer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,9 @@ void	error_opt(char opt)
 void	error_path(char *name, char *error, int ex)
 {
 	ft_putstr_fd(name, 2);
+	ft_putchar('\n');
+	ft_putstr(error);
+	ft_putchar('\n');
 	perror(error);
 	if (ex > 0)
 		exit(EXIT_FAILURE);
