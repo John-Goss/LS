@@ -6,7 +6,7 @@
 /*   By: jle-quer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/04 12:57:35 by jle-quer          #+#    #+#             */
-/*   Updated: 2016/04/16 15:31:25 by jle-quer         ###   ########.fr       */
+/*   Updated: 2016/04/16 17:32:52 by jle-quer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,27 +85,27 @@ void	ls_file(t_opt opt, t_list *path)
 void	read_path(t_opt opt, t_list *path, int multidir)
 {
 	DIR		*dir;
-	t_list	*file;
-	t_list	*directory;
-	t_list	*ptr;
+	t_list	*tab[3];
 
-	file = NULL;
-	directory = NULL;
-	ptr = path;
-	while (ptr)
+	tab[0] = NULL;
+	tab[1] = NULL;
+	tab[2] = path;
+	while (tab[2])
 	{
-		if ((dir = opendir(ptr->content)) == NULL)
-			errno != ENOTDIR ? error_path("ft_ls: ", ptr->content, 0) :
-				ft_lstpushback(&file, ptr->content, ptr->content_size);
+		if (is_link(tab[2]->content, opt))
+			ft_lstpushback(&tab[0], tab[2]->content, tab[2]->content_size);
+		else if ((dir = opendir(tab[2]->content)) == NULL)
+			errno != ENOTDIR ? error_path("ft_ls: ", tab[2]->content, 0) :
+				ft_lstpushback(&tab[0], tab[2]->content, tab[2]->content_size);
 		else
 		{
-			ft_lstpushback(&directory, ptr->content, ptr->content_size);
+			ft_lstpushback(&tab[1], tab[2]->content, tab[2]->content_size);
 			if (closedir(dir) == -1)
-				error_path("ft_ls: ", ptr->content, 0);
+				error_path("ft_ls: ", tab[2]->content, 0);
 		}
-		ptr = ptr->next;
+		tab[2] = tab[2]->next;
 	}
-	file ? ls_file(opt, file) : NULL;
-	file && directory ? ft_putchar('\n') : NULL;
-	directory ? ls_dir(opt, directory, multidir) : NULL;
+	tab[0] ? ls_file(opt, tab[0]) : NULL;
+	tab[0] && tab[1] ? ft_putchar('\n') : NULL;
+	tab[1] ? ls_dir(opt, tab[1], multidir) : NULL;
 }

@@ -6,7 +6,7 @@
 /*   By: jle-quer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/14 12:17:07 by jle-quer          #+#    #+#             */
-/*   Updated: 2016/04/15 15:07:13 by jle-quer         ###   ########.fr       */
+/*   Updated: 2016/04/16 17:29:15 by jle-quer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,4 +69,15 @@ void			elemgetfiles(t_elem **files, char *name, char *path, t_opt opt)
 	}
 	else
 		*files = elemnew(name, path, opt);
+}
+
+int				is_link(char *path, t_opt opt)
+{
+	t_elem *new;
+
+	if ((new = elemnew("", path, opt)) == NULL)
+		return (0);
+	if (!(S_ISLNK(new->st_mode)))
+		return (0);
+	return (1);
 }

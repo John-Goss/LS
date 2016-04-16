@@ -6,7 +6,7 @@
 /*   By: jle-quer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/12 15:14:55 by jle-quer          #+#    #+#             */
-/*   Updated: 2016/04/15 16:54:25 by jle-quer         ###   ########.fr       */
+/*   Updated: 2016/04/16 17:39:42 by jle-quer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,9 @@ void		ls_basic(t_opt opt, t_elem *files)
 	cur = files;
 	while (cur)
 	{
-		if (!(opt.a == 0 && cur->name[0] == '.'))
+		if (S_ISLNK(cur->st_mode) && opt.a)
+			;
+		else if (!(opt.a == 0 && cur->name[0] == '.'))
 		{
 			ft_color(opt, cur->st_mode);
 			ft_putendl(cur->name);

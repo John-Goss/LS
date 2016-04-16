@@ -6,7 +6,7 @@
 /*   By: jle-quer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/29 17:05:27 by jle-quer          #+#    #+#             */
-/*   Updated: 2016/04/15 19:15:07 by jle-quer         ###   ########.fr       */
+/*   Updated: 2016/04/16 16:13:34 by jle-quer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,5 +102,6 @@ t_size				get_size(t_opt opt, t_elem *files);
 t_elem				*sort_elem(t_elem *list, t_opt opt);
 void				recursion(t_opt opt, t_elem *files);
 void				display_link(t_elem *cur);
+int					is_link(char *path, t_opt opt);
 
 #endif
