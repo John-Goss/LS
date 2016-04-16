@@ -6,7 +6,7 @@
 /*   By: jle-quer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/29 17:26:20 by jle-quer          #+#    #+#             */
-/*   Updated: 2016/04/15 16:41:13 by jle-quer         ###   ########.fr       */
+/*   Updated: 2016/04/16 15:21:37 by jle-quer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ void		get_param(int ac, char **av, t_opt *opt, t_list **path)
 		if (type == 1)
 			parse_opt(opt, av[i + 1]);
 		else if (type == 0)
-			ft_lstpushback(path, av[i + 1], ft_strlen(av[i + 1]));
+			ft_lstpushback(path, av[i + 1], ft_strlen(av[i + 1]) + 1);
 	}
 }
 

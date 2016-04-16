@@ -6,7 +6,7 @@
 #    By: jle-quer <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/03/29 14:04:21 by jle-quer          #+#    #+#              #
-#    Updated: 2016/03/29 14:20:48 by jle-quer         ###   ########.fr        #
+#    Updated: 2016/04/16 15:30:02 by jle-quer         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,7 +37,7 @@ $(NAME): $(LIB) $(OBJET)
 	@gcc $(FLAGS) $(OBJET) -L./Libft/ -lft -o $(NAME)
 
 $(LIB):
-	make proper -C ./Libft/
+	make -C ./Libft/
 
 %.o: %.c
 	@gcc $(FLAGS) -I./Libft/INCLUDES -c $<
@@ -54,4 +54,5 @@ re: fclean all
 
 proper:
 	@make
+	@make clean -C ./Libft/
 	@make clean
