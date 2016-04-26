@@ -14,9 +14,7 @@
 
 static void	ft_color(t_opt opt, mode_t mode)
 {
-	if (!isatty(STDOUT_FILENO))
-		return ;
-	if (!opt.g)
+	if (!isatty(STDOUT_FILENO) || !opt.g)
 		return ;
 	S_ISBLK(mode) ? ft_putstr(C_RED) : NULL;
 	S_ISCHR(mode) ? ft_putstr(C_BLUE) : NULL;
